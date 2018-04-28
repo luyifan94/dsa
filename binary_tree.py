@@ -5,37 +5,35 @@ class TreeNode:
         self.right = None
 
 def serialize(root):
-    ch = []
+    res = []
     node_queue = [root]
     while node_queue:
-        node = nodeq.pop(0)
+        node = node_queue.pop(0)
         if node == None:
-            ch.append('#')
+            res.append('#')
         else:
-            ch.append(str(node.val) + ',')
+            res.append(str(node.val))
             node_queue.append(node.left)
             node_queue.append(node.right)
-    return ''.join(ch)
+    return ','.join(res)
 
 def deserialize(s):
-    s1 = s.split(',')
-    if s1[0] == '#':
+    s = s.split(',')
+    if s[0] == '#':
         return None
-    root = TreeNode(int(s1[0]))
-    node_queue = [root]
+    root = TreeNode(int(s[0]))
     i = 0
+    node_queue = [root]
     while node_queue:
         node = node_queue.pop(0)
         i += 1
-        if s1[i] != '#':
-            left = TreeNode(int(s1[i]))
-            node.left = left
-            node_queue.append(left)
+        if s[i] != '#':
+            node.left = TreeNode(int(s[i]))
+            node_queue.append(node.left)
         i += 1
-        if s1[i] != '#':
-            right = TreeNode(int(s1[i]))
-            node.right = right
-            node_queue.append(right)
+        if s[i] != '#':
+            node.right = TreeNode(int(s[i]))
+            node_queue.append(node.right)
     return root
 
 def pre_order(root):
@@ -83,11 +81,9 @@ def post_order0(root):
     return res[::-1]    #reverse in order when right node first
 
 def pre_order2(root):
-    if not root:
-        return
     res = []
-    node_stack = []
     node = root
+    node_stack = []
     while node or node_stack:
         while node:
             res.append(node.val)    #get value when push
@@ -98,11 +94,9 @@ def pre_order2(root):
     return res
 
 def in_order2(root):
-    if not root:
-        return
     res = []
-    node_stack = []
     node = root
+    node_stack = []
     while node or node_stack:
         while node:
             node_stack.append(node)
@@ -113,11 +107,9 @@ def in_order2(root):
     return res
 
 def post_order2(root):
-    if not root:
-        return
     res = []
-    node_stack = []
     node = root
+    node_stack = []
     while node or node_stack:
         while node:
             res.append(node.val)
@@ -126,3 +118,20 @@ def post_order2(root):
         node = node_stack.pop()
         node = node.left
     return res[::-1]    #reverse in order when right node first
+
+def get_tree_depth(root):
+    if not root:
+        return 0
+    left = get_tree_depth(root.left)
+    right = get_tree_depth(root.right)
+    return max(left, right)+1
+
+def is_balanced(root):
+    if not root:
+        return True
+    left = get_tree_depth(root.left)
+    right = get_tree_depth(root.right)
+    if abs(left-right) > 1:
+        return False
+    res = is_balanced(root.left) and is_balanced(root.right)
+    return res
