@@ -135,3 +135,30 @@ def is_balanced(root):
         return False
     res = is_balanced(root.left) and is_balanced(root.right)
     return res
+
+def is_tree_node(root, a):
+    if root is None or a is None:
+        return False
+    if root is a:
+        return True
+    #left = is_tree_node(root.left, a)
+    #right = is_tree_node(root.right, a)
+    #return left or right
+    res = is_tree_node(root.left, a) or is_tree_node(root.right, a) #此写法的优点在当第一选项为真时就能结束运算
+    return res
+
+def lca(root, a, b):
+    #假设a和b均在root中，所以需要选判断is_tree_node
+    if root is None or root is a or root is b:
+        return root
+        #存在问题，假如b在a的子节点，此函数搜寻到a就返回了，lca就是a
+        #若a在root中，但是b不在root中，搜寻到a返回后，会得到a是lca，但实际b并不在root中，这个情况result就错误了
+    left = lca(root.left, a, b)
+    right = lca(root.right, a, b)
+
+    if left and right:
+        return root
+        #若左右子树都不为空，此节点为最近公共祖先，返回此节点
+    else:
+        return left or right
+        #若左右都为空则返回空，若有一子树不为空则返回，返回的可能是最近公共祖先或者是ab中的一个(或None)
