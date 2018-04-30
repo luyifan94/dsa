@@ -144,7 +144,8 @@ def is_tree_node(root, a):
     #left = is_tree_node(root.left, a)
     #right = is_tree_node(root.right, a)
     #return left or right
-    res = is_tree_node(root.left, a) or is_tree_node(root.right, a) #此写法的优点在当第一选项为真时就能结束运算
+    res = is_tree_node(root.left, a) or is_tree_node(root.right, a)
+    #此写法的优点在当第一选项为真时就能结束运算
     return res
 
 def lca(root, a, b):
