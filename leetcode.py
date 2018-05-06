@@ -191,33 +191,32 @@ class Solution: #从中间到两边判断回文超时，避免上一种方法中
                 maxstr = s[i-x+1:i+x+1]
         return maxstr
 
+
 class Solution: #manacher算法
     def longestPalindrome(self, s):
         """
         :type s: str
         :rtype: str
         """
-        s = '#'+'#'.join(s)+'#'
+        s = '#' + '#'.join(s) + '#'
         lens = len(s)
         p = []
-        iid = 0
+        idx = 0
         mx = 0
-        maxd = 0
         for i in range(lens):
             if mx > i:
-                count = min(mx-i,p[2*iid-i])    #当i处在mx的范围内，有两个下限值
+                r = min(p[2 * idx - i], mx - i)  # 当i处在mx的范围内，有两个下限值，一个是关于idx对称的值和超过边界的值
             else:
-                count = 1
-            while i-count >= 0 and i+count<lens and s[i-count] ==s[i+count]:
-                count += 1
-            p.append(count*2-1)
-            if(i-1+count) > mx:
-                mx,idd=i+p[i],i
-            if p[i] > maxd:
-                maxd = p[i]
-                maxi = i
-        maxd = (maxd+1)//2 -1
-        res = s[maxi-maxd:maxi+maxd+1]
-        res = res.split('#')[1:-1]
+                r = 1
+            while i - r >= 0 and i + r < lens and s[i - r] == s[i + r]:
+                r += 1
+            p.append(r - 1)
+            if (i + p[i]) > mx:
+                mx, idx = i + p[i], i
+
+        maxr = max(p)
+        maxi = p.index(maxr)
+        res = s[maxi - maxr:maxi + maxr + 1].split('#')
+        res = res[1:-1]
         return ''.join(res)
 
