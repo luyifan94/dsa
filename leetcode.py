@@ -220,3 +220,41 @@ class Solution: #manacher算法
         res = res[1:-1]
         return ''.join(res)
 
+#6. ZigZag Conversion
+class Solution: #复杂度n*k
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows==1:
+            return s
+        n = numRows*2-2
+        res = []
+        for i in range(numRows):
+            for j in range(len(s)):
+                if j%n == i or j%n == n-i:
+                    res.append(s[j])
+        return ''.join(res)
+
+class Solution:	#复杂度n
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1:
+            return s
+        res = ['']*numRows
+
+        index,step = 0,1
+        for x in s:
+            res[index] += x
+            if index == 0:
+                step = 1
+            elif index == numRows-1:
+                step = -1
+            index += step
+        return ''.join(res)
