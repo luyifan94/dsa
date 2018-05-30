@@ -12,4 +12,4 @@ def union_interval(array):
 
 array = [(2,4),(3,6),(1,3),(6,7)]
 print(union_interval(array))
-
+#test
