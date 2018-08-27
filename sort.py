@@ -1,15 +1,15 @@
-def bin_search(array, target):
-    start = 0
-    end = len(array)
-    while(start < end):
-        mid = (start+end)//2
+def binary_search(array, target):
+    left = 0
+    right = len(array)-1
+    while(left < right):
+        mid = (left+right)//2
         if array[mid] > target:
-            end = mid
+            right = mid
         elif array[mid] < target:
-            start = mid + 1
+            left = mid + 1
         else:
             return mid
-    return -1
+    return -1 # left
 
 #平均n^2，最好n，最差n^2，辅助空间1
 def bubble_sort(array):
