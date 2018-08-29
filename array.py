@@ -6,7 +6,7 @@ def union_interval(array):
             temp[1] = array[i][1]
         else:
             temp = list(array[i])
-        if temp[1]-temp[0] > res[1] - res[0]:
+        if temp[1]-temp[0] > res[1]-res[0]:
             res = temp
     return tuple(res)
 
