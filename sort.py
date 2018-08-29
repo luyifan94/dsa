@@ -1,15 +1,26 @@
-def binary_search(array, target):
+def binary_search(array, key):
     left = 0
     right = len(array)-1
     while(left < right):
         mid = (left+right)//2
-        if array[mid] > target:
+        if array[mid] > key:
             right = mid
-        elif array[mid] < target:
+        elif array[mid] < key:
             left = mid + 1
         else:
             return mid
     return -1 # left
+
+def binary_search(array, key, left , right):
+    if left > right:
+        return None
+    mid = (left + right) // 2
+    if key == array[mid]:
+        return mid
+    elif key > array[mid]:
+        return binary_search(array, key, mid + 1, right)
+    else:
+        return binary_search(array, key, left, mid - 1)
 
 #平均n^2，最好n，最差n^2，辅助空间1
 def bubble_sort(array):
